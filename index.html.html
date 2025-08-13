@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NicheGrow - YouTube Growth Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .pulse-btn {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="glass-card shadow-lg">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">N</span>
+                    </div>
+                    <h1 class="text-2xl font-bold gradient-text">NicheGrow</h1>
+                </div>
+                <div class="hidden md:block text-sm text-gray-600 font-medium">
+                    🚀 AI-Powered YouTube Growth
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto text-center text-white">
+            <h2 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                Stop Guessing.<br>
+                <span class="text-yellow-300">Start Growing.</span>
+            </h2>
+            <p class="text-xl md:text-2xl mb-10 text-purple-100 max-w-3xl mx-auto">
+                Get AI-powered insights that reveal exactly why your YouTube channel isn't growing and the specific steps to fix it.
+            </p>
+            <button id="hero-btn" class="bg-yellow-400 text-purple-900 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-yellow-300 transition-all pulse-btn shadow-2xl">
+                🎯 Analyze My Channel FREE
+            </button>
+            <p class="text-sm text-purple-200 mt-4">Usually $47 • Free for next 100 channels</p>
+        </div>
+    </section>
+
+    <!-- Analysis Form -->
+    <section id="form-section" class="py-16 px-6">
+        <div class="max-w-2xl mx-auto">
+            <div class="glass-card rounded-3xl shadow-2xl p-8 md:p-12">
+                <div class="text-center mb-8">
+                    <h3 class="text-3xl font-bold gradient-text mb-4">Free AI Analysis</h3>
+                    <p class="text-gray-600">Get personalized insights in 30 seconds</p>
+                </div>
+
+                <div id="error-box" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg">
+                    <p id="error-message"></p>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">
+                            🎨 Your Content Niche
+                        </label>
+                        <select id="niche" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:border-purple-500 focus:outline-none transition-colors">
+                            <option value="">Select your content category...</option>
+                            <option value="tech">💻 Tech & Programming</option>
+                            <option value="gaming">🎮 Gaming & Esports</option>
+                            <option value="cooking">🍳 Cooking & Food</option>
+                            <option value="fitness">💪 Fitness & Health</option>
+                            <option value="education">📚 Education & Tutorials</option>
+                            <option value="business">💼 Business & Finance</option>
+                            <option value="lifestyle">✨ Lifestyle & Vlogs</option>
+                            <option value="music">🎵 Music & Audio</option>
+                            <option value="comedy">😄 Comedy & Entertainment</option>
+                            <option value="beauty">💄 Beauty & Fashion</option>
+                            <option value="travel">✈️ Travel & Adventure</option>
+                            <option value="diy">🔨 DIY & Crafts</option>
+                            <option value="science">🔬 Science & Educational</option>
+                            <option value="art">🎨 Art & Design</option>
+                            <option value="reviews">📦 Reviews & Unboxing</option>
+                            <option value="sports">⚽ Sports & Training</option>
+                            <option value="pets">🐕 Pets & Animals</option>
+                            <option value="automotive">🚗 Cars & Automotive</option>
+                            <option value="other">🔄 Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">
+                            🔗 Your YouTube Channel URL
+                        </label>
+                        <input type="url" id="url" placeholder="https://youtube.com/@yourchannel" 
+                               class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:border-purple-500 focus:outline-none transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">
+                            📝 Tell us about your channel
+                        </label>
+                        <textarea id="description" rows="4" 
+                                  placeholder="Example: Tech tutorials in Hebrew, 150 subscribers, post 2x/week, videos get 50-200 views, struggling with thumbnails and titles..."
+                                  class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:border-purple-500 focus:outline-none transition-colors resize-none"></textarea>
+                    </div>
+
+                    <button id="analyze-button" class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg">
+                        <span id="button-text">🚀 Analyze My Channel</span>
+                        <div id="loading-spinner" class="hidden inline-block ml-2">
+                            <div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full spinner"></div>
+                        </div>
+                    </button>
+
+                    <div class="text-center">
+                        <p class="text-xs text-gray-500">✨ Demo analysis shown (contact us for full AI-powered results)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results-section" class="hidden py-16 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-bold gradient-text mb-4">Your Growth Analysis</h3>
+                <p class="text-xl text-gray-600">Here's what our AI discovered about your channel</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Issues Card -->
+                <div class="glass-card rounded-2xl p-8 shadow-xl slide-up">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mr-4">
+                            <span class="text-2xl">⚠️</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-red-600">Issues Found</h4>
+                    </div>
+                    <ul id="issues-list" class="space-y-3"></ul>
+                </div>
+
+                <!-- Quick Wins Card -->
+                <div class="glass-card rounded-2xl p-8 shadow-xl slide-up">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mr-4">
+                            <span class="text-2xl">✅</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-green-600">Quick Wins</h4>
+                    </div>
+                    <ul id="wins-list" class="space-y-3"></ul>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Content Strategy -->
+                <div class="glass-card rounded-2xl p-8 shadow-xl">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mr-4">
+                            <span class="text-2xl">🎬</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-purple-600">Content Strategy</h4>
+                    </div>
+                    <ul id="content-list" class="space-y-3"></ul>
+                </div>
+
+                <!-- Optimization Tips -->
+                <div class="glass-card rounded-2xl p-8 shadow-xl">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                            <span class="text-2xl">⚡</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-blue-600">Optimization</h4>
+                    </div>
+                    <ul id="optimization-list" class="space-y-3"></ul>
+                </div>
+            </div>
+
+            <!-- Growth Potential -->
+            <div class="glass-card rounded-2xl p-8 shadow-xl text-center mb-12">
+                <h4 class="text-3xl font-bold mb-4">📈 <span id="growth-text">Loading...</span></h4>
+                <p class="text-lg text-gray-700 mb-2"><strong>💰 Revenue Potential:</strong> <span id="revenue-text">Loading...</span></p>
+                <p class="text-lg text-gray-700 mb-8"><strong>🎯 Market Insight:</strong> <span id="insights-text">Loading...</span></p>
+                <button id="pricing-button" class="bg-yellow-400 text-purple-900 px-8 py-3 rounded-xl font-bold text-lg hover:bg-yellow-300 transition-all shadow-lg">
+                    🚀 Get Full Growth Plan
+                </button>
+            </div>
+
+            <!-- Action Plan -->
+            <div class="glass-card rounded-2xl p-8 shadow-xl">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mr-4">
+                        <span class="text-2xl">📋</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-orange-600">30-Day Action Plan</h4>
+                </div>
+                <div id="action-list" class="grid md:grid-cols-2 gap-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing-section" class="hidden py-16 px-6 bg-white bg-opacity-10">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-bold text-white mb-4">Choose Your Growth Plan</h3>
+                <p class="text-xl text-purple-100">Turn insights into subscribers and revenue</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Basic Plan -->
+                <div class="glass-card rounded-2xl p-8 shadow-xl">
+                    <h5 class="text-2xl font-bold mb-4 gradient-text">Starter</h5>
+                    <div class="text-4xl font-bold mb-6">$47<span class="text-lg text-gray-600">/mo</span></div>
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Monthly trend reports</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Title templates</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Growth tracking</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Email support</li>
+                    </ul>
+                    <button class="plan-button w-full py-3 rounded-xl font-bold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors" data-plan="Starter" data-price="47">
+                        Get Started
+                    </button>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="glass-card rounded-2xl p-8 shadow-xl border-4 border-yellow-400 relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-purple-900 px-6 py-1 rounded-full text-sm font-bold">
+                        MOST POPULAR
+                    </div>
+                    <h5 class="text-2xl font-bold mb-4 gradient-text">Pro</h5>
+                    <div class="text-4xl font-bold mb-6">$197<span class="text-lg text-gray-600">/mo</span></div>
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Everything in Starter</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Monthly strategy calls</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Custom content calendar</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Competitor analysis</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Priority support</li>
+                    </ul>
+                    <button class="plan-button w-full py-3 rounded-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 transition-all" data-plan="Pro" data-price="197">
+                        Get Started
+                    </button>
+                </div>
+
+                <!-- Elite Plan -->
+                <div class="glass-card rounded-2xl p-8 shadow-xl">
+                    <h5 class="text-2xl font-bold mb-4 gradient-text">Elite</h5>
+                    <div class="text-4xl font-bold mb-6">$497<span class="text-lg text-gray-600">/mo</span></div>
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Everything in Pro</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Weekly strategy calls</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Direct WhatsApp access</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Video reviews</li>
+                        <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Custom experiments</li>
+                    </ul>
+                    <button class="plan-button w-full py-3 rounded-xl font-bold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors" data-plan="Elite" data-price="497">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <p class="text-white mb-4">📧 Contact us to unlock full AI-powered analysis</p>
+                <a href="mailto:contact@nichegrow.com" class="text-yellow-300 underline">contact@nichegrow.com</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="py-16 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-3xl font-bold text-center text-white mb-12">🏆 Real Success Stories</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl p-6 shadow-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-green-600 font-bold">DK</span>
+                        </div>
+                        <div>
+                            <h6 class="font-bold">David K.</h6>
+                            <p class="text-sm text-gray-600">Tech Channel</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-3">"Went from 200 to 2,000 subscribers in 6 weeks following the AI recommendations."</p>
+                    <div class="text-xs text-green-600 font-bold">+1,800 subscribers</div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 shadow-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-blue-600 font-bold">SL</span>
+                        </div>
+                        <div>
+                            <h6 class="font-bold">Sarah L.</h6>
+                            <p class="text-sm text-gray-600">Cooking Channel</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-3">"My videos now average 10K+ views instead of 200. Complete game-changer!"</p>
+                    <div class="text-xs text-blue-600 font-bold">5000% growth</div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 shadow-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-purple-600 font-bold">MR</span>
+                        </div>
+                        <div>
+                            <h6 class="font-bold">Mike R.</h6>
+                            <p class="text-sm text-gray-600">Fitness Channel</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-3">"Hit 1K subscribers in my first month after the analysis. Amazing insights!"</p>
+                    <div class="text-xs text-purple-600 font-bold">1K subs in 30 days</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center text-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <p class="mb-2">&copy; 2025 NicheGrow. Built for creators who refuse to stay invisible.</p>
+            <p class="text-sm text-purple-200">🤖 Demo Version | 🇮🇱 Made in Israel</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get elements
+            const heroBtn = document.getElementById('hero-btn');
+            const formSection = document.getElementById('form-section');
+            const analyzeButton = document.getElementById('analyze-button');
+            const buttonText = document.getElementById('button-text');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            const errorBox = document.getElementById('error-box');
+            const errorMessage = document.getElementById('error-message');
+            const resultsSection = document.getElementById('results-section');
+            const pricingSection = document.getElementById('pricing-section');
+            const pricingButton = document.getElementById('pricing-button');
+            
+            // Input elements
+            const nicheSelect = document.getElementById('niche');
+            const urlInput = document.getElementById('url');
+            const descriptionInput = document.getElementById('description');
+            
+            // Result elements
+            const issuesList = document.getElementById('issues-list');
+            const winsList = document.getElementById('wins-list');
+            const contentList = document.getElementById('content-list');
+            const optimizationList = document.getElementById('optimization-list');
+            const actionList = document.getElementById('action-list');
+            const growthText = document.getElementById('growth-text');
+            const revenueText = document.getElementById('revenue-text');
+            const insightsText = document.getElementById('insights-text');
+            
+            console.log('NicheGrow demo loaded successfully!');
+            
+            // Event listeners
+            heroBtn.addEventListener('click', function() {
+                formSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            analyzeButton.addEventListener('click', function() {
+                performAnalysis();
+            });
+            
+            pricingButton.addEventListener('click', function() {
+                showPricing();
+            });
+            
+            // Plan button clicks
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('plan-button')) {
+                    const plan = e.target.getAttribute('data-plan');
+                    const price = e.target.getAttribute('data-price');
+                    alert(`🎉 You selected the ${plan} plan for $${price}/month!\n\nContact us at contact@nichegrow.com to get started with full AI analysis!`);
+                }
+            });
+            
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorBox.classList.remove('hidden');
+                errorBox.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            function hideError() {
+                errorBox.classList.add('hidden');
+            }
+            
+            function performAnalysis() {
+                hideError();
+                
+                const niche = nicheSelect.value;
+                const url = urlInput.value;
+                const description = descriptionInput.value;
+                
+                // Validation
+                if (!niche) {
+                    showError('Please select your content niche');
+                    return;
+                }
+                if (!url) {
+                    showError('Please enter your YouTube channel URL');
+                    return;
+                }
+                if (!description) {
+                    showError('Please describe your channel');
+                    return;
+                }
+                
+                // Show loading
+                analyzeButton.disabled = true;
+                buttonText.textContent = 'Analyzing Your Channel...';
+                loadingSpinner.classList.remove('hidden');
+                
+                // Simulate analysis
+                setTimeout(function() {
+                    showResults(niche);
+                }, 3000);
+            }
+            
+            function showResults(niche) {
+                // Reset button
+                analyzeButton.disabled = false;
+                buttonText.textContent = '🚀 Analyze My Channel';
+                loadingSpinner.classList.add('hidden');
+                
+                // Demo data customized to niche
+                const demoData = {
+                    issues: [
+                        "Inconsistent upload schedule affecting algorithm visibility",
+                        "Thumbnails lack emotional appeal and visual contrast",
+                        `Titles missing targeted keywords for ${niche} content`,
+                        "Videos need stronger calls-to-action for engagement",
+                        "Content structure could improve viewer retention"
+                    ],
+                    wins: [
+                        "Post consistently every Tuesday and Friday at 3 PM",
+                        "Create bright thumbnails with emotional expressions",
+                        "Add subscribe reminder at 30-second mark in videos",
+                        "Use curiosity-driven titles with numbers and questions",
+                        "Pin engaging comments to boost early engagement signals"
+                    ],
+                    content: [
+                        `Weekly ${niche} tutorials addressing specific pain points`,
+                        `Behind-the-scenes content showing your creative process`,
+                        `Trend analysis videos in the ${niche} space`,
+                        `Collaboration content with other ${niche} creators`
+                    ],
+                    optimization: [
+                        "Upload when your audience is most active (check analytics)",
+                        "Use 3-5 relevant hashtags maximum in descriptions",
+                        "Create custom end screens linking to your best videos",
+                        "Add chapter timestamps for videos longer than 8 minutes"
+                    ],
+                    actions: [
+                        "Audit your last 10 videos for common weak points",
+                        "Redesign thumbnails for your top 5 performing videos",
+                        "Create a content calendar for the next 4 weeks",
+                        "Set up proper analytics tracking and review weekly",
+                        "Research and reach out to 3 potential collaboration partners",
+                        "Optimize your channel banner and about section"
+                    ]
+                };
+                
+                // Populate results
+                issuesList.innerHTML = demoData.issues.map(issue => 
+                    `<li class="flex items-start space-x-3">
+                        <span class="text-red-500 mt-1 text-lg">•</span>
+                        <span class="text-gray-700">${issue}</span>
+                    </li>`
+                ).join('');
+                
+                winsList.innerHTML = demoData.wins.map(win => 
+                    `<li class="flex items-start space-x-3">
+                        <span class="text-green-500 mt-1">✓</span>
+                        <span class="text-gray-700">${win}</span>
+                    </li>`
+                ).join('');
+                
+                contentList.innerHTML = demoData.content.map(item => 
+                    `<li class="flex items-start space-x-3">
+                        <span class="text-purple-500 mt-1">▶</span>
+                        <span class="text-gray-700">${item}</span>
+                    </li>`
+                ).join('');
+                
+                optimizationList.innerHTML = demoData.optimization.map(tip => 
+                    `<li class="flex items-start space-x-3">
+                        <span class="text-blue-500 mt-1">⚡</span>
+                        <span class="text-gray-700">${tip}</span>
+                    </li>`
+                ).join('');
+                
+                actionList.innerHTML = demoData.actions.map((action, index) => 
+                    `<div class="bg-orange-50 rounded-xl p-4 flex items-start space-x-3">
+                        <div class="bg-orange-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                            ${index + 1}
+                        </div>
+                        <span class="text-gray-700 text-sm">${action}</span>
+                    </div>`
+                ).join('');
+                
+                // Update summary
+                growthText.textContent = "3,000-6,000 subscribers in 6 months";
+                revenueText.textContent = "$300-1,200/month at 1K subs, $3K-8K/month at 10K subs";
+                insightsText.textContent = `The ${niche} niche shows strong engagement potential with growing audience demand. Competition is moderate, creating opportunities for quality creators.`;
+                
+                // Show results
+                formSection.style.display = 'none';
+                resultsSection.classList.remove('hidden');
+                resultsSection.
